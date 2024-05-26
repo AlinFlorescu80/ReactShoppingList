@@ -16,16 +16,11 @@ function App() {
     getUsers();
   }, []);
 
-
-
-
-
-
-
-  // eqfwqfewfq
-
   return (
     <div className="App">
+      <input placeholder ="Name..."/>
+      <input type = "number" placeholder="Age..."/>
+      <button> Create User</button>
       {users.map((user) => {
         return (
           <div>
