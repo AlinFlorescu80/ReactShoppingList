@@ -32,6 +32,10 @@ function App() {
       dueDate: newDueDate,
       priority: newPriority,
     });
+    setNewTitle("");
+    setNewDescription("");
+    setNewDueDate("");
+    setNewPriority("Low");
   };
 
   const updateTask = async (id, updatedFields) => {
@@ -55,28 +59,25 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Task Manager</h1>
       <input
         placeholder="Task Title..."
-        onChange={(event) => {
-          setNewTitle(event.target.value);
-        }}
+        value={newTitle}
+        onChange={(event) => setNewTitle(event.target.value)}
       />
       <textarea
         placeholder="Task Description..."
-        onChange={(event) => {
-          setNewDescription(event.target.value);
-        }}
+        value={newDescription}
+        onChange={(event) => setNewDescription(event.target.value)}
       />
       <input
         type="date"
-        onChange={(event) => {
-          setNewDueDate(event.target.value);
-        }}
+        value={newDueDate}
+        onChange={(event) => setNewDueDate(event.target.value)}
       />
       <select
-        onChange={(event) => {
-          setNewPriority(event.target.value);
-        }}
+        value={newPriority}
+        onChange={(event) => setNewPriority(event.target.value)}
       >
         <option value="Low">Low</option>
         <option value="Medium">Medium</option>
@@ -87,35 +88,27 @@ function App() {
         const isEditing = task.id === editingTaskId;
 
         return (
-          <div key={task.id}>
+          <div key={task.id} className={`task ${isEditing ? 'editing' : ''}`}>
             {isEditing ? (
               <div>
                 <input
                   value={editTitle}
                   placeholder="New Title..."
-                  onChange={(event) => {
-                    setEditTitle(event.target.value);
-                  }}
+                  onChange={(event) => setEditTitle(event.target.value)}
                 />
                 <textarea
                   value={editDescription}
                   placeholder="New Description..."
-                  onChange={(event) => {
-                    setEditDescription(event.target.value);
-                  }}
+                  onChange={(event) => setEditDescription(event.target.value)}
                 />
                 <input
                   type="date"
                   value={editDueDate}
-                  onChange={(event) => {
-                    setEditDueDate(event.target.value);
-                  }}
+                  onChange={(event) => setEditDueDate(event.target.value)}
                 />
                 <select
                   value={editPriority}
-                  onChange={(event) => {
-                    setEditPriority(event.target.value);
-                  }}
+                  onChange={(event) => setEditPriority(event.target.value)}
                 >
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
