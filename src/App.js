@@ -11,69 +11,160 @@ import {
 } from "firebase/firestore";
 
 function App() {
-  const [newName, setNewName] = useState("");
-  const [newAge, setNewAge] = useState(0);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newDueDate, setNewDueDate] = useState("");
+  const [newPriority, setNewPriority] = useState("Low");
 
-  const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(db, "users");
+  const [tasks, setTasks] = useState([]);
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editDueDate, setEditDueDate] = useState("");
+  const [editPriority, setEditPriority] = useState("Low");
 
-  const createUser = async () => {
-    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
+  const tasksCollectionRef = collection(db, "tasks");
+
+  const createTask = async () => {
+    await addDoc(tasksCollectionRef, {
+      title: newTitle,
+      description: newDescription,
+      dueDate: newDueDate,
+      priority: newPriority,
+    });
   };
 
-  const updateUser = async (id, age) => {
-    const userDoc = doc(db, "users", id);
-    const newFields = { age: Number(age) + 1 };
-    await updateDoc(userDoc, newFields);
+  const updateTask = async (id, updatedFields) => {
+    const taskDoc = doc(db, "tasks", id);
+    await updateDoc(taskDoc, updatedFields);
   };
 
-
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "users", id);
-    await deleteDoc(userDoc);
-  }
+  const deleteTask = async (id) => {
+    const taskDoc = doc(db, "tasks", id);
+    await deleteDoc(taskDoc);
+  };
 
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      console.log(data);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const getTasks = async () => {
+      const data = await getDocs(tasksCollectionRef);
+      setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    getUsers();
+    getTasks();
   }, []);
 
   return (
     <div className="App">
       <input
-        placeholder="Name..."
+        placeholder="Task Title..."
         onChange={(event) => {
-          setNewName(event.target.value);
+          setNewTitle(event.target.value);
+        }}
+      />
+      <textarea
+        placeholder="Task Description..."
+        onChange={(event) => {
+          setNewDescription(event.target.value);
         }}
       />
       <input
-        type="number"
-        placeholder="Age..."
+        type="date"
         onChange={(event) => {
-          setNewAge(event.target.value);
+          setNewDueDate(event.target.value);
         }}
       />
-      <button onClick={createUser}> Create User</button>
-      {users.map((user) => {
+      <select
+        onChange={(event) => {
+          setNewPriority(event.target.value);
+        }}
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button onClick={createTask}>Create Task</button>
+      {tasks.map((task) => {
+        const isEditing = task.id === editingTaskId;
+
         return (
-          <div>
-            {" "}
-            <h1> Name: {user.name}</h1>
-            <h1> Age: {user.age}</h1>
-            <button
-              onClick={() => {
-                updateUser(user.id, user.age);
-              }}
-            >
-              {" "}
-              Increase Age
-            </button>
-            <button onClick= {() => {deleteUser(user.id)}}> Delete</button>
+          <div key={task.id}>
+            {isEditing ? (
+              <div>
+                <input
+                  value={editTitle}
+                  placeholder="New Title..."
+                  onChange={(event) => {
+                    setEditTitle(event.target.value);
+                  }}
+                />
+                <textarea
+                  value={editDescription}
+                  placeholder="New Description..."
+                  onChange={(event) => {
+                    setEditDescription(event.target.value);
+                  }}
+                />
+                <input
+                  type="date"
+                  value={editDueDate}
+                  onChange={(event) => {
+                    setEditDueDate(event.target.value);
+                  }}
+                />
+                <select
+                  value={editPriority}
+                  onChange={(event) => {
+                    setEditPriority(event.target.value);
+                  }}
+                >
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+                <button
+                  onClick={() => {
+                    const updatedFields = {
+                      title: editTitle,
+                      description: editDescription,
+                      dueDate: editDueDate,
+                      priority: editPriority,
+                    };
+                    updateTask(task.id, updatedFields);
+                    setEditingTaskId(null);
+                  }}
+                >
+                  Save
+                </button>
+                <button onClick={() => setEditingTaskId(null)}>Cancel</button>
+              </div>
+            ) : (
+              <div>
+                <h2>Title: {task.title}</h2>
+                <p>Description: {task.description}</p>
+                <p>Due Date: {task.dueDate}</p>
+                <p>Priority: {task.priority}</p>
+                <button
+                  onClick={() => {
+                    setEditingTaskId(task.id);
+                    setEditTitle(task.title);
+                    setEditDescription(task.description);
+                    setEditDueDate(task.dueDate);
+                    setEditPriority(task.priority);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => {
+                    if (window.confirm("Are you sure you want to delete this task?")) {
+                      deleteTask(task.id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         );
       })}
