@@ -55,3 +55,11 @@ button:hover {
 .editing .task {
   background-color: #eef;
 }
+
+h1 {
+  text-align: center;
+}
+
+.task h2 {
+  text-align: center;
+}

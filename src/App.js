@@ -14,14 +14,14 @@ function App() {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
-  const [newPriority, setNewPriority] = useState("Low");
+  const [newHour, setNewHour] = useState("00:00"); // New hour state
 
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
-  const [editPriority, setEditPriority] = useState("Low");
+  const [editHour, setEditHour] = useState("00:00"); // New hour state
 
   const tasksCollectionRef = collection(db, "tasks");
 
@@ -30,12 +30,12 @@ function App() {
       title: newTitle,
       description: newDescription,
       dueDate: newDueDate,
-      priority: newPriority,
+      hour: newHour, // Include hour in task creation
     });
     setNewTitle("");
     setNewDescription("");
     setNewDueDate("");
-    setNewPriority("Low");
+    setNewHour("00:00");
   };
 
   const updateTask = async (id, updatedFields) => {
@@ -75,14 +75,11 @@ function App() {
         value={newDueDate}
         onChange={(event) => setNewDueDate(event.target.value)}
       />
-      <select
-        value={newPriority}
-        onChange={(event) => setNewPriority(event.target.value)}
-      >
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
+      <input
+        type="time" // Use type="time" for the hour field
+        value={newHour}
+        onChange={(event) => setNewHour(event.target.value)}
+      />
       <button onClick={createTask}>Create Task</button>
       {tasks.map((task) => {
         const isEditing = task.id === editingTaskId;
@@ -106,21 +103,18 @@ function App() {
                   value={editDueDate}
                   onChange={(event) => setEditDueDate(event.target.value)}
                 />
-                <select
-                  value={editPriority}
-                  onChange={(event) => setEditPriority(event.target.value)}
-                >
-                  <option value="Low">Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                </select>
+                <input
+                  type="time" // Use type="time" for the hour field
+                  value={editHour}
+                  onChange={(event) => setEditHour(event.target.value)}
+                />
                 <button
                   onClick={() => {
                     const updatedFields = {
                       title: editTitle,
                       description: editDescription,
                       dueDate: editDueDate,
-                      priority: editPriority,
+                      hour: editHour, // Include hour in updated fields
                     };
                     updateTask(task.id, updatedFields);
                     setEditingTaskId(null);
@@ -132,24 +126,24 @@ function App() {
               </div>
             ) : (
               <div>
-                <h2>Title: {task.title}</h2>
+                <h2>{task.title}</h2>
                 <p>Description: {task.description}</p>
                 <p>Due Date: {task.dueDate}</p>
-                <p>Priority: {task.priority}</p>
+                <p>Hour: {task.hour}</p>
                 <button
                   onClick={() => {
                     setEditingTaskId(task.id);
                     setEditTitle(task.title);
                     setEditDescription(task.description);
                     setEditDueDate(task.dueDate);
-                    setEditPriority(task.priority);
+                    setEditHour(task.hour);
                   }}
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => {
-                    if (window.confirm("Are you sure you want to delete this task?")) {
+                    if (window.confirm("Sigur vrei sa stergi asta varule?")) {
                       deleteTask(task.id);
                     }
                   }}
