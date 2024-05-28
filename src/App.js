@@ -9,20 +9,21 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 function App() {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
-  const [newHour, setNewHour] = useState("00:00"); // New hour state
+  const [newHour, setNewHour] = useState("00:00");
 
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
-  const [editHour, setEditHour] = useState("00:00"); // New hour state
-  const [sortCriteria, setSortCriteria] = useState("title"); // State for sorting criteria
+  const [editHour, setEditHour] = useState("00:00");
+  const [sortCriteria, setSortCriteria] = useState("title");
 
   const tasksCollectionRef = collection(db, "tasks");
 
@@ -31,26 +32,26 @@ function App() {
       title: newTitle,
       description: newDescription,
       dueDate: newDueDate,
-      hour: newHour, // Include hour in task creation
-      completed: false, // New completed field
+      hour: newHour,
+      completed: false,
     });
     setNewTitle("");
     setNewDescription("");
     setNewDueDate("");
     setNewHour("00:00");
-    fetchTasks(); // Refetch tasks to include the new task in the list
+    fetchTasks();
   };
 
   const updateTask = async (id, updatedFields) => {
     const taskDoc = doc(db, "tasks", id);
     await updateDoc(taskDoc, updatedFields);
-    fetchTasks(); // Refetch tasks to reflect the updated task
+    fetchTasks();
   };
 
   const deleteTask = async (id) => {
     const taskDoc = doc(db, "tasks", id);
     await deleteDoc(taskDoc);
-    fetchTasks(); // Refetch tasks to remove the deleted task from the list
+    fetchTasks();
   };
 
   const fetchTasks = async () => {
@@ -84,7 +85,10 @@ function App() {
 
   const toggleCompletion = async (task) => {
     const updatedFields = { completed: !task.completed };
+    const newTasks = tasks.filter((t) => t.id !== task.id);
+    setTasks(newTasks);
     await updateTask(task.id, updatedFields);
+    setTimeout(fetchTasks, 500); // Delay to trigger the transition animation
   };
 
   return (
@@ -121,93 +125,101 @@ function App() {
           <option value="priority">Priority</option>
         </select>
       </div>
-      {tasks.map((task) => {
-        const isEditing = task.id === editingTaskId;
+      <TransitionGroup>
+        {tasks.map((task) => {
+          const isEditing = task.id === editingTaskId;
 
-        return (
-          <div key={task.id} className={`task ${isEditing ? 'editing' : ''} ${task.completed ? 'completed' : ''}`}>
-            {isEditing ? (
-              <div>
-                <input
-                  value={editTitle}
-                  placeholder="New Title..."
-                  onChange={(event) => setEditTitle(event.target.value)}
-                />
-                <textarea
-                  value={editDescription}
-                  placeholder="New Description..."
-                  onChange={(event) => setEditDescription(event.target.value)}
-                />
-                <input
-                  type="date"
-                  value={editDueDate}
-                  onChange={(event) => setEditDueDate(event.target.value)}
-                />
-                <input
-                  type="time"
-                  value={editHour}
-                  onChange={(event) => setEditHour(event.target.value)}
-                />
-                <button
-                  onClick={() => {
-                    const updatedFields = {
-                      title: editTitle,
-                      description: editDescription,
-                      dueDate: editDueDate,
-                      hour: editHour,
-                    };
-                    updateTask(task.id, updatedFields);
-                    setEditingTaskId(null);
-                  }}
-                >
-                  Save
-                </button>
-                <button onClick={() => setEditingTaskId(null)}>Cancel</button>
-              </div>
-            ) : (
-              <div>
-                <h2> {task.title}</h2>
-                <p>Description: {task.description}</p>
-                <p>Due Date: {task.dueDate}</p>
-                <p>Hour: {task.hour}</p>
-                <p>Priority: {task.priority}</p>
-                <div className="task-footer">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={task.completed}
-                      onChange={() => toggleCompletion(task)}
-                    />
-                    Completed
-                  </label>
+          return (
+            <CSSTransition
+              key={task.id}
+              timeout={500}
+              classNames="task"
+            >
+              <div className={`task ${isEditing ? 'editing' : ''} ${task.completed ? 'completed' : ''}`}>
+                {isEditing ? (
                   <div>
+                    <input
+                      value={editTitle}
+                      placeholder="New Title..."
+                      onChange={(event) => setEditTitle(event.target.value)}
+                    />
+                    <textarea
+                      value={editDescription}
+                      placeholder="New Description..."
+                      onChange={(event) => setEditDescription(event.target.value)}
+                    />
+                    <input
+                      type="date"
+                      value={editDueDate}
+                      onChange={(event) => setEditDueDate(event.target.value)}
+                    />
+                    <input
+                      type="time"
+                      value={editHour}
+                      onChange={(event) => setEditHour(event.target.value)}
+                    />
                     <button
                       onClick={() => {
-                        setEditingTaskId(task.id);
-                        setEditTitle(task.title);
-                        setEditDescription(task.description);
-                        setEditDueDate(task.dueDate);
-                        setEditHour(task.hour);
+                        const updatedFields = {
+                          title: editTitle,
+                          description: editDescription,
+                          dueDate: editDueDate,
+                          hour: editHour,
+                        };
+                        updateTask(task.id, updatedFields);
+                        setEditingTaskId(null);
                       }}
                     >
-                      Edit
+                      Save
                     </button>
-                    <button
-                      onClick={() => {
-                        if (window.confirm("Are you sure you want to delete this task?")) {
-                          deleteTask(task.id);
-                        }
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <button onClick={() => setEditingTaskId(null)}>Cancel</button>
                   </div>
-                </div>
+                ) : (
+                  <div>
+                    <h2>{task.title}</h2>
+                    <p>Description: {task.description}</p>
+                    <p>Due Date: {task.dueDate}</p>
+                    <p>Hour: {task.hour}</p>
+                    <p>Priority: {task.priority}</p>
+                    <div className="task-footer">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={task.completed}
+                          onChange={() => toggleCompletion(task)}
+                        />
+                        Completed
+                      </label>
+                      <div>
+                        <button
+                          onClick={() => {
+                            setEditingTaskId(task.id);
+                            setEditTitle(task.title);
+                            setEditDescription(task.description);
+                            setEditDueDate(task.dueDate);
+                            setEditHour(task.hour);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (window.confirm("Are you sure you want to delete this task?")) {
+                              deleteTask(task.id);
+                            }
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        );
-      })}
+            </CSSTransition>
+          );
+        })}
+      </TransitionGroup>
     </div>
   );
 }

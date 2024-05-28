@@ -34,6 +34,7 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:18.3.1"],\
           ["react-scripts", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.1"],\
+          ["react-transition-group", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:4.4.5"],\
           ["web-vitals", "npm:2.1.4"]\
         ],\
         "linkType": "SOFT"\
@@ -9177,6 +9178,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["dom-helpers", [\
+      ["npm:5.2.1", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/dom-helpers-npm-5.2.1-b38bb4470b-10c0.zip/node_modules/dom-helpers/",\
+        "packageDependencies": [\
+          ["dom-helpers", "npm:5.2.1"],\
+          ["@babel/runtime", "npm:7.24.6"],\
+          ["csstype", "npm:3.1.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["dom-serializer", [\
       ["npm:0.2.2", {\
         "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/dom-serializer-npm-0.2.2-2e24969c0e-10c0.zip/node_modules/dom-serializer/",\
@@ -16219,6 +16231,7 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:18.3.1"],\
           ["react-scripts", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.1"],\
+          ["react-transition-group", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:4.4.5"],\
           ["web-vitals", "npm:2.1.4"]\
         ],\
         "linkType": "SOFT"\
@@ -16609,6 +16622,36 @@ const RAW_RUNTIME_STATE =
           "@types/typescript",\
           "react",\
           "typescript"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-transition-group", [\
+      ["npm:4.4.5", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/react-transition-group-npm-4.4.5-98ea4ef96e-10c0.zip/node_modules/react-transition-group/",\
+        "packageDependencies": [\
+          ["react-transition-group", "npm:4.4.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:4.4.5", {\
+        "packageLocation": "./.yarn/__virtual__/react-transition-group-virtual-9fb9575074/5/Users/alinflorescu/AppData/Local/Yarn/Berry/cache/react-transition-group-npm-4.4.5-98ea4ef96e-10c0.zip/node_modules/react-transition-group/",\
+        "packageDependencies": [\
+          ["react-transition-group", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:4.4.5"],\
+          ["@babel/runtime", "npm:7.24.6"],\
+          ["@types/react", null],\
+          ["@types/react-dom", null],\
+          ["dom-helpers", "npm:5.2.1"],\
+          ["loose-envify", "npm:1.4.0"],\
+          ["prop-types", "npm:15.8.1"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\

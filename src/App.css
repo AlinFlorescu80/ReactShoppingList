@@ -59,28 +59,10 @@ button:hover {
   padding: 5px 10px;
 }
 
-.editing .task {
-  background-color: #eef;
-}
-
-select {
-  width: auto;
-  margin-left: 10px;
-}
-
-h1 {
-  text-align: center;
-}
-
-.task h2 {
-  text-align: center;
-}
-
 .task-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
 }
 
 .task-footer label {
@@ -90,4 +72,30 @@ h1 {
 
 .task-footer input[type="checkbox"] {
   margin-right: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.task-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.task-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.task-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.task-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
 }
