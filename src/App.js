@@ -22,6 +22,7 @@ function App() {
   const [editDescription, setEditDescription] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
   const [editHour, setEditHour] = useState("00:00"); // New hour state
+  const [sortCriteria, setSortCriteria] = useState("title"); // State for sorting criteria
 
   const tasksCollectionRef = collection(db, "tasks");
 
@@ -31,61 +32,100 @@ function App() {
       description: newDescription,
       dueDate: newDueDate,
       hour: newHour, // Include hour in task creation
+      completed: false, // New completed field
     });
     setNewTitle("");
     setNewDescription("");
     setNewDueDate("");
     setNewHour("00:00");
+    fetchTasks(); // Refetch tasks to include the new task in the list
   };
 
   const updateTask = async (id, updatedFields) => {
     const taskDoc = doc(db, "tasks", id);
     await updateDoc(taskDoc, updatedFields);
+    fetchTasks(); // Refetch tasks to reflect the updated task
   };
 
   const deleteTask = async (id) => {
     const taskDoc = doc(db, "tasks", id);
     await deleteDoc(taskDoc);
+    fetchTasks(); // Refetch tasks to remove the deleted task from the list
+  };
+
+  const fetchTasks = async () => {
+    const data = await getDocs(tasksCollectionRef);
+    const tasksList = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    setTasks(sortTasks(tasksList, sortCriteria));
   };
 
   useEffect(() => {
-    const getTasks = async () => {
-      const data = await getDocs(tasksCollectionRef);
-      setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+    fetchTasks();
+  }, [sortCriteria]);
 
-    getTasks();
-  }, []);
+  const sortTasks = (tasks, criteria) => {
+    const sortedTasks = tasks.sort((a, b) => {
+      if (a.completed && !b.completed) return 1;
+      if (!a.completed && b.completed) return -1;
+      switch (criteria) {
+        case "title":
+          return a.title.localeCompare(b.title);
+        case "dueDate":
+          return new Date(a.dueDate) - new Date(b.dueDate);
+        case "priority":
+          const priorityOrder = { "Low": 1, "Medium": 2, "High": 3 };
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+        default:
+          return 0;
+      }
+    });
+    return sortedTasks;
+  };
+
+  const toggleCompletion = async (task) => {
+    const updatedFields = { completed: !task.completed };
+    await updateTask(task.id, updatedFields);
+  };
 
   return (
     <div className="App">
       <h1>Task Manager</h1>
-      <input
-        placeholder="Task Title..."
-        value={newTitle}
-        onChange={(event) => setNewTitle(event.target.value)}
-      />
-      <textarea
-        placeholder="Task Description..."
-        value={newDescription}
-        onChange={(event) => setNewDescription(event.target.value)}
-      />
-      <input
-        type="date"
-        value={newDueDate}
-        onChange={(event) => setNewDueDate(event.target.value)}
-      />
-      <input
-        type="time" // Use type="time" for the hour field
-        value={newHour}
-        onChange={(event) => setNewHour(event.target.value)}
-      />
-      <button onClick={createTask}>Create Task</button>
+      <div>
+        <input
+          placeholder="Task Title..."
+          value={newTitle}
+          onChange={(event) => setNewTitle(event.target.value)}
+        />
+        <textarea
+          placeholder="Task Description..."
+          value={newDescription}
+          onChange={(event) => setNewDescription(event.target.value)}
+        />
+        <input
+          type="date"
+          value={newDueDate}
+          onChange={(event) => setNewDueDate(event.target.value)}
+        />
+        <input
+          type="time"
+          value={newHour}
+          onChange={(event) => setNewHour(event.target.value)}
+        />
+        <button onClick={createTask}>Create Task</button>
+      </div>
+      <div>
+        <label>Sort by: </label>
+        <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
+          <option value="title">Title</option>
+          <option value="dueDate">Due Date</option>
+          <option value="priority">Priority</option>
+        </select>
+      </div>
       {tasks.map((task) => {
         const isEditing = task.id === editingTaskId;
 
         return (
-          <div key={task.id} className={`task ${isEditing ? 'editing' : ''}`}>
+          <div key={task.id} className={`task ${isEditing ? 'editing' : ''} ${task.completed ? 'completed' : ''}`}>
             {isEditing ? (
               <div>
                 <input
@@ -104,7 +144,7 @@ function App() {
                   onChange={(event) => setEditDueDate(event.target.value)}
                 />
                 <input
-                  type="time" // Use type="time" for the hour field
+                  type="time"
                   value={editHour}
                   onChange={(event) => setEditHour(event.target.value)}
                 />
@@ -114,7 +154,7 @@ function App() {
                       title: editTitle,
                       description: editDescription,
                       dueDate: editDueDate,
-                      hour: editHour, // Include hour in updated fields
+                      hour: editHour,
                     };
                     updateTask(task.id, updatedFields);
                     setEditingTaskId(null);
@@ -126,30 +166,43 @@ function App() {
               </div>
             ) : (
               <div>
-                <h2>{task.title}</h2>
+                <h2> {task.title}</h2>
                 <p>Description: {task.description}</p>
                 <p>Due Date: {task.dueDate}</p>
                 <p>Hour: {task.hour}</p>
-                <button
-                  onClick={() => {
-                    setEditingTaskId(task.id);
-                    setEditTitle(task.title);
-                    setEditDescription(task.description);
-                    setEditDueDate(task.dueDate);
-                    setEditHour(task.hour);
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => {
-                    if (window.confirm("Sigur vrei sa stergi asta varule?")) {
-                      deleteTask(task.id);
-                    }
-                  }}
-                >
-                  Delete
-                </button>
+                <p>Priority: {task.priority}</p>
+                <div className="task-footer">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={task.completed}
+                      onChange={() => toggleCompletion(task)}
+                    />
+                    Completed
+                  </label>
+                  <div>
+                    <button
+                      onClick={() => {
+                        setEditingTaskId(task.id);
+                        setEditTitle(task.title);
+                        setEditDescription(task.description);
+                        setEditDueDate(task.dueDate);
+                        setEditHour(task.hour);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete this task?")) {
+                          deleteTask(task.id);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
