@@ -79,7 +79,7 @@ function App() {
           return new Date(a.dueDate) - new Date(b.dueDate);
         case "priority":
           const priorityOrder = { "Low": 1, "Medium": 2, "High": 3 };
-          return priorityOrder[b.priority] - priorityOrder[a.priority]; // Adjusted for high priority on top
+          return priorityOrder[b.priority] - priorityOrder[a.priority]; 
         default:
           return 0;
       }
@@ -92,7 +92,7 @@ function App() {
     const newTasks = tasks.filter((t) => t.id !== task.id);
     setTasks(newTasks);
     await updateTask(task.id, updatedFields);
-    setTimeout(fetchTasks, 500); // Delay to trigger the transition animation
+    setTimeout(fetchTasks, 500); 
   };
 
   return (
@@ -226,7 +226,7 @@ function App() {
                         </button>
                         <button
                           onClick={() => {
-                            if (window.confirm("Are you sure you want to delete this task?")) {
+                            if (window.confirm("Sigur vrei sa stergi asta varule?")) {
                               deleteTask(task.id);
                             }
                           }}
