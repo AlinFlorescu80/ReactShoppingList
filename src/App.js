@@ -16,6 +16,7 @@ function App() {
   const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
   const [newHour, setNewHour] = useState("00:00");
+  const [newPriority, setNewPriority] = useState("Low");
 
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
@@ -23,6 +24,7 @@ function App() {
   const [editDescription, setEditDescription] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
   const [editHour, setEditHour] = useState("00:00");
+  const [editPriority, setEditPriority] = useState("Low");
   const [sortCriteria, setSortCriteria] = useState("title");
 
   const tasksCollectionRef = collection(db, "tasks");
@@ -33,12 +35,14 @@ function App() {
       description: newDescription,
       dueDate: newDueDate,
       hour: newHour,
+      priority: newPriority,
       completed: false,
     });
     setNewTitle("");
     setNewDescription("");
     setNewDueDate("");
     setNewHour("00:00");
+    setNewPriority("Low");
     fetchTasks();
   };
 
@@ -75,7 +79,7 @@ function App() {
           return new Date(a.dueDate) - new Date(b.dueDate);
         case "priority":
           const priorityOrder = { "Low": 1, "Medium": 2, "High": 3 };
-          return priorityOrder[a.priority] - priorityOrder[b.priority];
+          return priorityOrder[b.priority] - priorityOrder[a.priority]; // Adjusted for high priority on top
         default:
           return 0;
       }
@@ -115,6 +119,14 @@ function App() {
           value={newHour}
           onChange={(event) => setNewHour(event.target.value)}
         />
+        <select
+          value={newPriority}
+          onChange={(event) => setNewPriority(event.target.value)}
+        >
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
         <button onClick={createTask}>Create Task</button>
       </div>
       <div>
@@ -158,6 +170,14 @@ function App() {
                       value={editHour}
                       onChange={(event) => setEditHour(event.target.value)}
                     />
+                    <select
+                      value={editPriority}
+                      onChange={(event) => setEditPriority(event.target.value)}
+                    >
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
                     <button
                       onClick={() => {
                         const updatedFields = {
@@ -165,6 +185,7 @@ function App() {
                           description: editDescription,
                           dueDate: editDueDate,
                           hour: editHour,
+                          priority: editPriority,
                         };
                         updateTask(task.id, updatedFields);
                         setEditingTaskId(null);
@@ -198,6 +219,7 @@ function App() {
                             setEditDescription(task.description);
                             setEditDueDate(task.dueDate);
                             setEditHour(task.hour);
+                            setEditPriority(task.priority);
                           }}
                         >
                           Edit
