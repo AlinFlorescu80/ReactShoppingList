@@ -20,7 +20,7 @@ input, textarea, select, button {
 
 button {
   width: auto;
-  background-color: #007bff;
+  background-color: #9FCADF;
   color: white;
   border: none;
   cursor: pointer;
@@ -90,4 +90,83 @@ button:hover {
 
 body {
   background-color: hsl(200, 50%, 75%); /* Azure cu saturația mărită */
+}
+
+
+.App {
+  text-align: center;
+}
+
+.App h1 {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  border: 1px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
+
+.react-calendar__navigation button {
+  color: #6f48eb;
+  min-width: 44px;
+  background: none;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: none;
+  text-align: center;
+  line-height: 16px;
+  color: #000;
+}
+
+.react-calendar__tile--active {
+  background: #6f48eb;
+  color: white;
+}
+
+.react-calendar__tile--now {
+  background: #BBFA95;
+  color: #000;
+}
+
+.react-calendar__tile--active:hover,
+.react-calendar__tile--active:focus {
+  background: #6f48eb;
+  color: white;
+}
+
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+  color: #d3d3d3;
 }
