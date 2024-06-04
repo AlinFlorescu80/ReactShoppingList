@@ -32,6 +32,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/user-event", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:13.5.0"],\
           ["firebase", "npm:10.12.1"],\
           ["react", "npm:18.3.1"],\
+          ["react-calendar", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.0"],\
           ["react-dom", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:18.3.1"],\
           ["react-scripts", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.1"],\
           ["react-transition-group", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:4.4.5"],\
@@ -6627,6 +6628,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@wojtekmaj/date-utils", [\
+      ["npm:1.5.1", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/@wojtekmaj-date-utils-npm-1.5.1-e21d58f022-10c0.zip/node_modules/@wojtekmaj/date-utils/",\
+        "packageDependencies": [\
+          ["@wojtekmaj/date-utils", "npm:1.5.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@xtuc/ieee754", [\
       ["npm:1.2.0", {\
         "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/@xtuc-ieee754-npm-1.2.0-ec0ce4e025-10c0.zip/node_modules/@xtuc/ieee754/",\
@@ -8045,6 +8055,15 @@ const RAW_RUNTIME_STATE =
           ["string-width", "npm:4.2.3"],\
           ["strip-ansi", "npm:6.0.1"],\
           ["wrap-ansi", "npm:7.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["clsx", [\
+      ["npm:2.1.1", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/clsx-npm-2.1.1-96125b98be-10c0.zip/node_modules/clsx/",\
+        "packageDependencies": [\
+          ["clsx", "npm:2.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10892,6 +10911,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["get-user-locale", [\
+      ["npm:2.3.2", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/get-user-locale-npm-2.3.2-3b463b4839-10c0.zip/node_modules/get-user-locale/",\
+        "packageDependencies": [\
+          ["get-user-locale", "npm:2.3.2"],\
+          ["mem", "npm:8.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["glob", [\
       ["npm:10.4.1", {\
         "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/glob-npm-10.4.1-a0d030e0a9-10c0.zip/node_modules/glob/",\
@@ -13404,6 +13433,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["map-age-cleaner", [\
+      ["npm:0.1.3", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/map-age-cleaner-npm-0.1.3-fd9e4b4aff-10c0.zip/node_modules/map-age-cleaner/",\
+        "packageDependencies": [\
+          ["map-age-cleaner", "npm:0.1.3"],\
+          ["p-defer", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["mdn-data", [\
       ["npm:2.0.14", {\
         "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/mdn-data-npm-2.0.14-0acd669f0d-10c0.zip/node_modules/mdn-data/",\
@@ -13425,6 +13464,17 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/media-typer-npm-0.3.0-8674f8f0f5-10c0.zip/node_modules/media-typer/",\
         "packageDependencies": [\
           ["media-typer", "npm:0.3.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["mem", [\
+      ["npm:8.1.1", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/mem-npm-8.1.1-4270f09409-10c0.zip/node_modules/mem/",\
+        "packageDependencies": [\
+          ["mem", "npm:8.1.1"],\
+          ["map-age-cleaner", "npm:0.1.3"],\
+          ["mimic-fn", "npm:3.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13519,6 +13569,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/mimic-fn-npm-2.1.0-4fbeb3abb4-10c0.zip/node_modules/mimic-fn/",\
         "packageDependencies": [\
           ["mimic-fn", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:3.1.0", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/mimic-fn-npm-3.1.0-12d126ec66-10c0.zip/node_modules/mimic-fn/",\
+        "packageDependencies": [\
+          ["mimic-fn", "npm:3.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -14148,6 +14205,15 @@ const RAW_RUNTIME_STATE =
           ["prelude-ls", "npm:1.2.1"],\
           ["type-check", "npm:0.4.0"],\
           ["word-wrap", "npm:1.2.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["p-defer", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/p-defer-npm-1.0.0-4dfd0013f5-10c0.zip/node_modules/p-defer/",\
+        "packageDependencies": [\
+          ["p-defer", "npm:1.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16229,6 +16295,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/user-event", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:13.5.0"],\
           ["firebase", "npm:10.12.1"],\
           ["react", "npm:18.3.1"],\
+          ["react-calendar", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.0"],\
           ["react-dom", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:18.3.1"],\
           ["react-scripts", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.1"],\
           ["react-transition-group", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:4.4.5"],\
@@ -16431,6 +16498,36 @@ const RAW_RUNTIME_STATE =
           ["raf", "npm:3.4.1"],\
           ["regenerator-runtime", "npm:0.13.11"],\
           ["whatwg-fetch", "npm:3.6.20"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-calendar", [\
+      ["npm:5.0.0", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/react-calendar-npm-5.0.0-10f08df0a4-10c0.zip/node_modules/react-calendar/",\
+        "packageDependencies": [\
+          ["react-calendar", "npm:5.0.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-calendar-virtual-f28dea35d4/5/Users/alinflorescu/AppData/Local/Yarn/Berry/cache/react-calendar-npm-5.0.0-10f08df0a4-10c0.zip/node_modules/react-calendar/",\
+        "packageDependencies": [\
+          ["react-calendar", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:5.0.0"],\
+          ["@types/react", null],\
+          ["@types/react-dom", null],\
+          ["@wojtekmaj/date-utils", "npm:1.5.1"],\
+          ["clsx", "npm:2.1.1"],\
+          ["get-user-locale", "npm:2.3.2"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:dea6788f08672e7754a981f56c43da4c28f835ab2080c4158408c61197ff027009dc2f32f116a935084f09de919b862cd8d958804b22e7eeda49d567edb37116#npm:18.3.1"],\
+          ["warning", "npm:4.0.3"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -18838,6 +18935,16 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["walker", "npm:1.0.8"],\
           ["makeerror", "npm:1.0.12"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["warning", [\
+      ["npm:4.0.3", {\
+        "packageLocation": "../../../../Users/alinflorescu/AppData/Local/Yarn/Berry/cache/warning-npm-4.0.3-291e921d6d-10c0.zip/node_modules/warning/",\
+        "packageDependencies": [\
+          ["warning", "npm:4.0.3"],\
+          ["loose-envify", "npm:1.4.0"]\
         ],\
         "linkType": "HARD"\
       }]\

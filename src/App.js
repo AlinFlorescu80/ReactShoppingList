@@ -26,6 +26,7 @@ function App() {
   const [editHour, setEditHour] = useState("00:00");
   const [editPriority, setEditPriority] = useState("Low");
   const [sortCriteria, setSortCriteria] = useState("title");
+  const [notification, setNotification] = useState("");
 
   const tasksCollectionRef = collection(db, "tasks");
 
@@ -44,18 +45,21 @@ function App() {
     setNewHour("00:00");
     setNewPriority("Low");
     fetchTasks();
+    showNotification("Task created successfully!");
   };
 
   const updateTask = async (id, updatedFields) => {
     const taskDoc = doc(db, "tasks", id);
     await updateDoc(taskDoc, updatedFields);
     fetchTasks();
+    showNotification("Task updated successfully!");
   };
 
   const deleteTask = async (id) => {
     const taskDoc = doc(db, "tasks", id);
     await deleteDoc(taskDoc);
     fetchTasks();
+    showNotification("Task deleted successfully!");
   };
 
   const fetchTasks = async () => {
@@ -79,7 +83,7 @@ function App() {
           return new Date(a.dueDate) - new Date(b.dueDate);
         case "priority":
           const priorityOrder = { "Low": 1, "Medium": 2, "High": 3 };
-          return priorityOrder[b.priority] - priorityOrder[a.priority]; 
+          return priorityOrder[b.priority] - priorityOrder[a.priority];
         default:
           return 0;
       }
@@ -92,12 +96,31 @@ function App() {
     const newTasks = tasks.filter((t) => t.id !== task.id);
     setTasks(newTasks);
     await updateTask(task.id, updatedFields);
-    setTimeout(fetchTasks, 500); 
+    setTimeout(fetchTasks, 500);
+    showNotification(task.completed ? "Task marked as incomplete!" : "Task marked as complete!");
+  };
+
+  const markAllCompleted = async () => {
+    for (let task of tasks) {
+      if (!task.completed) {
+        await updateTask(task.id, { completed: true });
+      }
+    }
+    fetchTasks();
+    showNotification("All tasks marked as completed!");
+  };
+
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification("");
+    }, 3000);
   };
 
   return (
     <div className="App">
       <h1>Task Manager</h1>
+      {notification && <div className="notification">{notification}</div>}
       <div>
         <input
           placeholder="Task Title..."
@@ -128,6 +151,7 @@ function App() {
           <option value="High">High</option>
         </select>
         <button onClick={createTask}>Create Task</button>
+        <button onClick={markAllCompleted}>Mark All Completed</button>
       </div>
       <div>
         <label>Sort by: </label>
@@ -226,7 +250,7 @@ function App() {
                         </button>
                         <button
                           onClick={() => {
-                            if (window.confirm("Sigur vrei sa stergi asta varule?")) {
+                            if (window.confirm("Are you sure you want to delete this task?")) {
                               deleteTask(task.id);
                             }
                           }}
