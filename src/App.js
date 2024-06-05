@@ -97,7 +97,6 @@ function App() {
   };
 
   const filterTasksByDate = (tasks, date) => {
-    // Ensure the date is set to midnight to avoid time zone issues
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
   
