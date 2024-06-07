@@ -130,9 +130,7 @@ body {
   margin-top: 8px;
 }
 
-.react-calendar__navigation button:disabled {
-  background-color: #f0f0f0;
-}
+
 
 .react-calendar__month-view__weekdays {
   text-align: center;
@@ -150,23 +148,10 @@ body {
   color: #000;
 }
 
-.react-calendar__tile--active {
-  background: #6f48eb;
-  color: white;
-}
 
 .react-calendar__tile--now {
   background: #BBFA95;
   color: #000;
 }
 
-.react-calendar__tile--active:hover,
-.react-calendar__tile--active:focus {
-  background: #6f48eb;
-  color: white;
-}
 
-.react-calendar__tile:disabled {
-  background-color: #f0f0f0;
-  color: #d3d3d3;
-}
